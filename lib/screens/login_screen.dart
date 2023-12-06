@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_flutter/services/auth_methods.dart';
 import 'package:zoom_flutter/widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthMethods _authMethods = AuthMethods();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           CustomButton(
             text: 'Sign In',
-            onPressed: () {
-              
+            onPressed: () async {
+              bool res = await _authMethods.signInWithGoogle(context);
+
+              if (res) {
+                Navigator.pushNamed(context, '/home');
+              }
             },
           ),
         ],
