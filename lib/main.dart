@@ -1,13 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_flutter/screens/home_screen.dart';
 import 'package:zoom_flutter/screens/login_screen.dart';
 import 'package:zoom_flutter/utils/colors.dart';
+import 'package:zoom_flutter/firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const ZoomFlutter());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ZoomFlutter extends StatelessWidget {
+  const ZoomFlutter({super.key});
 
   // This widget is the root of your application.
   @override
@@ -20,6 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomeScreen(),
       },
       home: const LoginScreen(),
     );
